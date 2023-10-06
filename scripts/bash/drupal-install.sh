@@ -38,7 +38,7 @@ if [ ! -d "${DRUPAL_HOME}" ] ; then
   sudo chown `whoami` ${DRUPAL_HOME}
 else
   # clean up previous site folder if any
-  [[ -f "${DRUPAL_HOME}/$SITE_URI" ]] && sudo rm -rf "${DRUPAL_HOME}/$SITE_URI"
+  [[ -d "${DRUPAL_HOME}/$SITE_URI" ]] && sudo rm -rf "${DRUPAL_HOME}/$SITE_URI"
 fi
 
 # Create project from composer.json
