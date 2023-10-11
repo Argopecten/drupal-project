@@ -5,9 +5,6 @@
 # on Github: https://github.com/argopecten/drupal-project/
 #
 
-# just logging
-echo post-install | sudo tee -a script-control.txt
-
 ###############################################################################
 # The script runs when the post-install-cmd event is fired by composer.
 # This occurs after "composer install" is executed with a composer.lock
@@ -27,6 +24,7 @@ echo post-install | sudo tee -a script-control.txt
 echo "DP | --------------------------------------------------------------------"
 echo "DP | Site and database parameters ..."
 # get Drupal project directory
+DRUPAL_ROOT=$PWD
 DRUPAL_HOME=$(basename "$PWD")
 
 # the URI for the Drupal frontend, default is the project directory
@@ -34,6 +32,8 @@ SITE_URI=$DRUPAL_HOME
 
 # random database password for drupal site user
 DRUPAL_DB_PASS=$(openssl rand -base64 16)
+# remove special characters (/, ' and ") from password
+DRUPAL_DB_PASS="${DRUPAL_DB_PASS//[\/|\'|\"]/}"
 
 # DB user is the site URI without dots
 DRUPAL_DB_USER="${SITE_URI//./}"
@@ -42,15 +42,15 @@ DRUPAL_DB_USER="${SITE_URI//./}"
 DRUPAL_DB_NAME="${DRUPAL_DB_USER:0:16}"
 
 # DB host: defaults to localhost
-DRUPAL_DB_HOST='localhost'
+DRUPAL_DB_HOST="localhost"
 
 # log DB parameters
-echo "DP | MySQL password of user $DRUPAL_DB_USER for DB $DRUPAL_DB_NAME is $DRUPAL_DB_PASS" > db.txt
+echo "mysql://$DRUPAL_DB_USER:$DRUPAL_DB_PASS@$DRUPAL_DB_HOST/$DRUPAL_DB_NAME" > db-url.conf
 
 echo "DP | --------------------------------------------------------------------"
 echo "DP | A) Database settings for Drupal ..."
 # retrive db root pwd:
-DB_ROOT_PWD=`sudo cat /root/db.txt`
+DB_ROOT_PWD=$(sudo cat /root/db.txt)
 # Create database
 sudo /usr/bin/mysql -u root -p"$DB_ROOT_PWD" -e "CREATE DATABASE $DRUPAL_DB_NAME"
 # Create db user
@@ -66,7 +66,7 @@ cp web/sites/default/default.settings.php web/sites/$SITE_URI/settings.php
 
 echo "DP | --------------------------------------------------------------------"
 echo "DP | C) Set file ownerships and permissions ..."
-script_user=`whoami`
+script_user=$(whoami)
 web_group="www-data"
 # ownerships
 sudo find ./web -exec chown ${script_user}:${web_group} '{}' \+
@@ -76,25 +76,38 @@ find ./web -type d -exec chmod 750 '{}' \+
 find ./web -type f -exec chmod 640 '{}' \+
 
 # Prepare the /sites directory: write permissions for www-data
-chmod 770 sites/$SITE_URI
+chmod 770 ./web/sites/$SITE_URI
 find ./web/sites/$SITE_URI -type d -exec chmod 770 '{}' \+
 find ./web/sites/$SITE_URI -type f -exec chmod 660 '{}' \+
 
 echo "DP | --------------------------------------------------------------------"
 echo "DP | D) Configure webserver to serve the site ..."
-# TBD
+# site parameters for webserver
+echo " # site config for $DRUPAL_ROOT
+server {
+  server_name   $SITE_URI;
+  root          $DRUPAL_ROOT/web;
+  ### drupal specific configurations
+  include       /usr/local/etc/nginx-config/core.d/*;
+}
+" | sudo tee /usr/local/etc/nginx-config/sites.d/$SITE_URI.conf
 
 echo "DP | --------------------------------------------------------------------"
 echo "DP | E) Running the drupal installer ..."
-vendor/bin/drush topic
+# drupal site install via drush
+vendor/bin/drush site-install standard --yes \
+  --db-url=$(cat db-url.conf) \
+  --site-name=$SITE_URI \
+  --sites-subdir=$SITE_URI
 
 echo "DP | --------------------------------------------------------------------"
 echo "DP | F) Finalizing file settings on fresh create folders ..."
-chmod 750 sites/$SITE_URI
+chmod 750 ./web/sites/$SITE_URI
 sudo find ./web/sites/$SITE_URI -type d -exec chmod 750 '{}' \+
 sudo find ./web/sites/$SITE_URI -type f -exec chmod 640 '{}' \+
 chmod 440 ./web/sites/$SITE_URI/settings.php
 
 echo "DP | --------------------------------------------------------------------"
 echo "DP | G) Cleaning up ..."
-# reload services?
+# reload services
+sudo systemctl reload nginx
