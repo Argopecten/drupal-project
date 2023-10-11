@@ -30,10 +30,10 @@ DRUPAL_HOME=$(basename "$PWD")
 # the URI for the Drupal frontend, default is the project directory
 SITE_URI=$DRUPAL_HOME
 
-# random database password for drupal site user
-DRUPAL_DB_PASS=$(openssl rand -base64 16)
-# remove special characters (/, ' and ") from password
-DRUPAL_DB_PASS="${DRUPAL_DB_PASS//[\/|\'|\"]/}"
+# generate 5x4 bits for password
+DRUPAL_DB_PASS=$(pwgen 5 4 -c -n -s -B)
+# replace newlines by underscore
+DRUPAL_DB_PASS="${DRUPAL_DB_PASS//$'\n'/'_'}"
 
 # DB user is the site URI without dots
 DRUPAL_DB_USER="${SITE_URI//./}"
