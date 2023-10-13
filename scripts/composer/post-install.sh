@@ -50,7 +50,7 @@ echo "mysql://$DRUPAL_DB_USER:$DRUPAL_DB_PASS@$DRUPAL_DB_HOST/$DRUPAL_DB_NAME" >
 echo "DP | --------------------------------------------------------------------"
 echo "DP | A) Database settings for Drupal ..."
 # retrive db root pwd:
-DB_ROOT_PWD=$(sudo cat /root/db.txt)
+DB_ROOT_PWD=$(sudo cat /root/db_pwd.txt)
 # Create database
 sudo /usr/bin/mysql -u root -p"$DB_ROOT_PWD" -e "CREATE DATABASE $DRUPAL_DB_NAME"
 # Create db user
@@ -100,12 +100,24 @@ vendor/bin/drush site-install standard --yes \
   --site-name=$SITE_URI \
   --sites-subdir=$SITE_URI
 
+# set final password for first (admin) user
+echo "$(echo `pwgen 5 4 -c -n -s -B` | tr -s ' ' '_' )" > admin_pwd.txt
+vendor/bin/drush user:password admin '$(cat admin_pwd.txt)' --uri=$SITE_URI
+
 echo "DP | --------------------------------------------------------------------"
 echo "DP | F) Finalizing file settings on fresh create folders ..."
+
+sudo find ./web/sites/$SITE_URI -exec chown ${script_user}:${web_group} '{}' \+
+
 chmod 750 ./web/sites/$SITE_URI
 sudo find ./web/sites/$SITE_URI -type d -exec chmod 750 '{}' \+
 sudo find ./web/sites/$SITE_URI -type f -exec chmod 640 '{}' \+
 chmod 440 ./web/sites/$SITE_URI/settings.php
+
+# /files is writeable for www-data 
+chmod 770 ./web/sites/$SITE_URI/files
+sudo find ./web/sites/$SITE_URI/files -type d -exec chmod 770 '{}' \+
+sudo find ./web/sites/$SITE_URI/files -type f -exec chmod 660 '{}' \+
 
 echo "DP | --------------------------------------------------------------------"
 echo "DP | G) Cleaning up ..."
