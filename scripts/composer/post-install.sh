@@ -64,6 +64,16 @@ echo "DP | B) Preparing Drupal settings file and folders ..."
 mkdir -p web/sites/$SITE_URI
 cp web/sites/default/default.settings.php web/sites/$SITE_URI/settings.php
 
+cat <<EOF >> web/sites/$SITE_URI/settings.php
+#
+# change trusted_host_patterns
+# https://www.drupal.org/docs/getting-started/installing-drupal/trusted-host-settings
+\$settings['trusted_host_patterns'] = [
+   '^$SITE_URI$',
+   '^.+\.$SITE_URI$',
+];
+EOF
+
 echo "DP | --------------------------------------------------------------------"
 echo "DP | C) Set file ownerships and permissions ..."
 script_user=$(whoami)
@@ -114,7 +124,7 @@ sudo find ./web/sites/$SITE_URI -type d -exec chmod 750 '{}' \+
 sudo find ./web/sites/$SITE_URI -type f -exec chmod 640 '{}' \+
 chmod 440 ./web/sites/$SITE_URI/settings.php
 
-# /files is writeable for www-data 
+# /files is writeable for www-data
 chmod 770 ./web/sites/$SITE_URI/files
 sudo find ./web/sites/$SITE_URI/files -type d -exec chmod 770 '{}' \+
 sudo find ./web/sites/$SITE_URI/files -type f -exec chmod 660 '{}' \+
