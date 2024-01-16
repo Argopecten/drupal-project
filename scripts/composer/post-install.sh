@@ -92,15 +92,10 @@ find ./web/sites/$SITE_URI -type f -exec chmod 660 '{}' \+
 
 echo "DP | --------------------------------------------------------------------"
 echo "DP | D) Configure webserver to serve the site ..."
-# site parameters for webserver
-echo " # site config for $DRUPAL_ROOT
-server {
-  server_name   $SITE_URI;
-  root          $DRUPAL_ROOT/web;
-  ### drupal specific configurations
-  include       /usr/local/etc/nginx-config/core.d/*;
-}
-" | sudo tee /usr/local/etc/nginx-config/sites.d/$SITE_URI.conf
+# site config for webserver, except SSL certs!
+sudo cp /usr/local/etc/nginx-config/sites.d/$(hostname -f).conf \
+     /usr/local/etc/nginx-config/sites.d/$SITE_URI.conf
+sudo sed -i -e "s/$(hostname -f)/$SITE_URI/" /usr/local/etc/nginx-config/sites.d/$SITE_URI.conf
 
 echo "DP | --------------------------------------------------------------------"
 echo "DP | E) Running the drupal installer ..."
