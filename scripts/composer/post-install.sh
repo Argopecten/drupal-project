@@ -107,7 +107,7 @@ vendor/bin/drush site-install standard --yes \
 
 # set final password for first (admin) user
 echo "$(echo `pwgen 5 4 -c -n -s -B` | tr -s ' ' '_' )" > admin_pwd.txt
-vendor/bin/drush user:password admin '$(cat admin_pwd.txt)' --uri=$SITE_URI
+vendor/bin/drush user:password admin $(cat admin_pwd.txt) --uri=$SITE_URI
 
 echo "DP | --------------------------------------------------------------------"
 echo "DP | F) Finalizing file settings on fresh create folders ..."
