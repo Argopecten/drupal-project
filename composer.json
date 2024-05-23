@@ -21,9 +21,11 @@
     "require": {
       "argopecten/civiboot": "^2.0",
       "composer/installers": "^2.0",
-      "drupal/core-composer-scaffold": "^10.1",
-      "drupal/core-recommended": "^10.1",
-      "drush/drush": "^12.2"
+      "cweagans/composer-patches": "^1.7",
+      "drupal/core-composer-scaffold": "^10.2",
+      "drupal/core-recommended": "^10.2",
+      "drupal/core-vendor-hardening": "^10.2",
+      "psr/log": "1.1.4 as 3.0.0"
     },
     "require-dev": {
     },
@@ -35,8 +37,10 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
+            "cweagans/composer-patches": true,
             "composer/installers": true,
             "drupal/core-composer-scaffold": true,
+            "drupal/core-vendor-hardening": true,
             "phpstan/extension-installer": true
         },
         "sort-packages": true
@@ -71,6 +75,11 @@
             "web/modules/custom/{$name}":     ["type:drupal-custom-module"],
             "web/profiles/custom/{$name}":    ["type:drupal-custom-profile"],
             "web/themes/custom/{$name}":      ["type:drupal-custom-theme"]
+        },
+        "patches": {
+            "drupal/core": {
+                "Omega8cc Removing typehints" : "https://raw.githubusercontent.com/omega8cc/boa/5.x-dev/aegir/patches/drupal-ten-aegir-01.patch"
+            }
         }
     }
 }
