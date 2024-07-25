@@ -4,5 +4,11 @@
 #
 # on Github: https://github.com/argopecten/drupal-project/
 #
-
-echo pre-update | sudo tee -a script-control.txt
+###############################################################################
+# The script runs when the pre-update-cmd event is fired by composer.
+# This occurs before "composer update" is executed.
+#
+# Functionality:
+#  -
+#
+###############################################################################

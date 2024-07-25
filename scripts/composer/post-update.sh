@@ -4,5 +4,11 @@
 #
 # on Github: https://github.com/argopecten/drupal-project/
 #
-
-echo post-update | sudo tee -a script-control.txt
+###############################################################################
+# The script runs when the post-update-cmd event is fired by composer.
+# This occurs after "composer update" is executed.
+#
+# Functionality:
+#  -
+#
+###############################################################################
