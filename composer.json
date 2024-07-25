@@ -1,5 +1,5 @@
 {
-    "name": "drupal/recommended-project",
+    "name": "argopecten/drupal-project",
     "description": "Project template for Drupal projects with a relocated document root",
     "type": "project",
     "license": "GPL-2.0-or-later",
@@ -20,7 +20,6 @@
         "drupal/core-recommended": "~10.2.7"
     },
     "require-dev": {
-        "drupal/core-dev": "~10.2.7"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -31,9 +30,7 @@
         "allow-plugins": {
             "composer/installers": true,
             "drupal/core-composer-scaffold": true,
-            "phpstan/extension-installer": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "php-http/discovery": true
+            "phpstan/extension-installer": true
         },
         "sort-packages": true
     },
