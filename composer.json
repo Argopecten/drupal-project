@@ -16,8 +16,10 @@
     ],
     "require": {
         "composer/installers": "^2.0",
+        "cweagans/composer-patches": "^1.7",
         "drupal/core-composer-scaffold": "~10.2.7",
-        "drupal/core-recommended": "~10.2.7"
+        "drupal/core-recommended": "~10.2.7",
+        "psr/log": "1.1.4 as 3.0.0"
     },
     "require-dev": {
     },
@@ -30,11 +32,17 @@
         "allow-plugins": {
             "composer/installers": true,
             "drupal/core-composer-scaffold": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "cweagans/composer-patches": true
         },
         "sort-packages": true
     },
     "extra": {
+        "patches": {
+            "drupal/core": {
+                "Omega8 D10 Aegir3 patch": "https://raw.githubusercontent.com/omega8cc/boa/5.x-dev/aegir/patches/drupal-ten-aegir-01.patch"
+            }
+        },
         "drupal-scaffold": {
             "locations": {
                 "web-root": "web/"
@@ -51,5 +59,13 @@
             "web/profiles/custom/{$name}": ["type:drupal-custom-profile"],
             "web/themes/custom/{$name}": ["type:drupal-custom-theme"]
         }
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "rm -rf vendor/symfony/console/Input # see https://www.computerminds.co.uk/articles/aegir-3-and-drupal-10-just-about-working"
+        ],
+        "post-install-cmd": [
+            "rm -rf vendor/symfony/console/Input # see https://www.computerminds.co.uk/articles/aegir-3-and-drupal-10-just-about-working"
+        ]
     }
 }
