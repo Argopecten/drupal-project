@@ -27,6 +27,7 @@
         "cweagans/composer-patches": "^1.7",
         "drupal/core-composer-scaffold": "~10.2.7",
         "drupal/core-recommended": "~10.2.7",
+        "drush/drush": "^12.4.1",
         "psr/log": "1.1.4 as 3.0.0"
     },
     "require-dev": {
