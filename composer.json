@@ -75,10 +75,12 @@
     },
     "scripts": {
         "post-update-cmd": [
-            "rm -rf vendor/symfony/console/Input # see https://www.computerminds.co.uk/articles/aegir-3-and-drupal-10-just-about-working"
+            "rm -rf vendor/symfony/console/Input # see https://www.computerminds.co.uk/articles/aegir-3-and-drupal-10-just-about-working",
+            "[[ -f /usr/local/bin/cv ]] || sudo curl -LsS https://download.civicrm.org/cv/cv.phar -o /usr/local/bin/cv; sudo chmod +x /usr/local/bin/cv", # download cv-tools
         ],
         "post-install-cmd": [
-            "rm -rf vendor/symfony/console/Input # see https://www.computerminds.co.uk/articles/aegir-3-and-drupal-10-just-about-working"
+          "rm -rf vendor/symfony/console/Input # see https://www.computerminds.co.uk/articles/aegir-3-and-drupal-10-just-about-working",
+          "[[ -f /usr/local/bin/cv ]] || sudo curl -LsS https://download.civicrm.org/cv/cv.phar -o /usr/local/bin/cv; sudo chmod +x /usr/local/bin/cv", # download cv-tools
         ]
     }
 }
