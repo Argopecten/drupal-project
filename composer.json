@@ -8,13 +8,21 @@
         "docs": "https://www.drupal.org/docs/user_guide/en/index.html",
         "chat": "https://www.drupal.org/node/314178"
     },
-    "repositories": [
-        {
+    "repositories": {
+        "drupal": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        "civiboot": {
+            "type": "vcs",
+            "url":  "https://github.com/argopecten/civiboot"
         }
-    ],
+    },
     "require": {
+        "argopecten/civiboot": "^2.0",
+        "civicrm/civicrm-core": "^5.75",
+        "civicrm/civicrm-drupal-8": "^5.75",
+        "civicrm/civicrm-packages": "^5.75",
         "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.7",
         "drupal/core-composer-scaffold": "~10.3.1",
@@ -34,7 +42,10 @@
             "composer/installers": true,
             "drupal/core-composer-scaffold": true,
             "phpstan/extension-installer": true,
-            "cweagans/composer-patches": true
+            "cweagans/composer-patches": true,
+            "civicrm/composer-downloads-plugin": true,
+            "civicrm/composer-compile-plugin": true,
+            "civicrm/civicrm-asset-plugin": true
         },
         "sort-packages": true
     },
@@ -58,14 +69,17 @@
             "web/modules/custom/{$name}": ["type:drupal-custom-module"],
             "web/profiles/custom/{$name}": ["type:drupal-custom-profile"],
             "web/themes/custom/{$name}": ["type:drupal-custom-theme"]
-        }
+          },
+          "compile-whitelist": ["civicrm/civicrm-core", "civicrm/composer-compile-lib"]
     },
     "scripts": {
         "post-update-cmd": [
-            "rm -rf vendor/symfony/console/Input # see https://www.computerminds.co.uk/articles/aegir-3-and-drupal-10-just-about-working"
+          "sudo curl -LsS https://download.civicrm.org/cv/cv.phar -o /usr/local/bin/cv; sudo chmod +x /usr/local/bin/cv",
+          "rm -rf vendor/symfony/console/Input # see https://www.computerminds.co.uk/articles/aegir-3-and-drupal-10-just-about-working"
         ],
         "post-install-cmd": [
-            "rm -rf vendor/symfony/console/Input # see https://www.computerminds.co.uk/articles/aegir-3-and-drupal-10-just-about-working"
+          "sudo curl -LsS https://download.civicrm.org/cv/cv.phar -o /usr/local/bin/cv; sudo chmod +x /usr/local/bin/cv",
+          "rm -rf vendor/symfony/console/Input # see https://www.computerminds.co.uk/articles/aegir-3-and-drupal-10-just-about-working"
         ]
     }
 }
