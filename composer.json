@@ -20,9 +20,9 @@
     },
     "require": {
         "argopecten/civiboot": "^2.0",
-        "civicrm/civicrm-core": "^5.75",
-        "civicrm/civicrm-drupal-8": "^5.75",
-        "civicrm/civicrm-packages": "^5.75",
+        "civicrm/civicrm-core": "~5.75.1",
+        "civicrm/civicrm-drupal-8": "~5.75.1",
+        "civicrm/civicrm-packages": "~5.75.1",
         "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.7",
         "drupal/core-composer-scaffold": "~10.3.1",
