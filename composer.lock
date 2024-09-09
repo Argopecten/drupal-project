@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0efe61082c3255bd3ac4e46adc1482f3",
+    "content-hash": "f1351ec5595179eaf2bf940e8979fe34",
     "packages": [
         {
             "name": "adrienrn/php-mimetyper",
@@ -421,16 +421,16 @@
         },
         {
             "name": "civicrm/civicrm-core",
-            "version": "5.76.3",
+            "version": "5.77.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-core.git",
-                "reference": "4db073be8b41bf3cea765f34fa35ea4d8d58b0db"
+                "reference": "786deb637f93a0b885c2c1455dd83fac52e59150"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/civicrm/civicrm-core/zipball/4db073be8b41bf3cea765f34fa35ea4d8d58b0db",
-                "reference": "4db073be8b41bf3cea765f34fa35ea4d8d58b0db",
+                "url": "https://api.github.com/repos/civicrm/civicrm-core/zipball/786deb637f93a0b885c2c1455dd83fac52e59150",
+                "reference": "786deb637f93a0b885c2c1455dd83fac52e59150",
                 "shasum": ""
             },
             "require": {
@@ -676,7 +676,7 @@
                         ]
                     },
                     "font-awesome": {
-                        "url": "https://github.com/FortAwesome/Font-Awesome/archive/v4.7.0.zip",
+                        "url": "https://github.com/FortAwesome/Font-Awesome/releases/download/6.6.0/fontawesome-free-6.6.0-web.zip",
                         "ignore": [
                             "*/.*",
                             "*.json",
@@ -775,7 +775,7 @@
                         ]
                     },
                     "select2": {
-                        "url": "https://github.com/colemanw/select2/archive/v3.5-civicrm-1.0.zip"
+                        "url": "https://github.com/colemanw/select2/archive/v3.5-civicrm-1.1.zip"
                     },
                     "js-yaml": {
                         "url": "https://github.com/nodeca/js-yaml/archive/3.13.1.zip",
@@ -889,7 +889,7 @@
             ],
             "description": "Open source constituent relationship management for non-profits, NGOs and advocacy organizations.",
             "support": {
-                "source": "https://github.com/civicrm/civicrm-core/tree/5.76.3"
+                "source": "https://github.com/civicrm/civicrm-core/tree/5.77.0"
             },
             "funding": [
                 {
@@ -897,7 +897,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2024-09-05T05:52:52+00:00"
+            "time": "2024-09-05T07:06:49+00:00"
         },
         {
             "name": "civicrm/civicrm-cxn-rpc",
@@ -942,7 +942,7 @@
         },
         {
             "name": "civicrm/civicrm-drupal-8",
-            "version": "5.76.3",
+            "version": "5.77.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-drupal-8.git",
@@ -991,7 +991,7 @@
             ],
             "description": "Open source constituent relationship management for non-profits, NGOs and advocacy organizations.",
             "support": {
-                "source": "https://github.com/civicrm/civicrm-drupal-8/tree/5.76.3"
+                "source": "https://github.com/civicrm/civicrm-drupal-8/tree/5.77.0"
             },
             "funding": [
                 {
@@ -1003,25 +1003,25 @@
         },
         {
             "name": "civicrm/civicrm-packages",
-            "version": "5.76.3",
+            "version": "5.77.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-packages.git",
-                "reference": "45b39026def71038e58b5330e37879d9b64ece8a"
+                "reference": "6a29d244340bae8289f402e0da693528716c42f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/civicrm/civicrm-packages/zipball/45b39026def71038e58b5330e37879d9b64ece8a",
-                "reference": "45b39026def71038e58b5330e37879d9b64ece8a",
+                "url": "https://api.github.com/repos/civicrm/civicrm-packages/zipball/6a29d244340bae8289f402e0da693528716c42f3",
+                "reference": "6a29d244340bae8289f402e0da693528716c42f3",
                 "shasum": ""
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
             "description": "Legacy third party dependencies for CiviCRM",
             "support": {
-                "source": "https://github.com/civicrm/civicrm-packages/tree/5.76.3"
+                "source": "https://github.com/civicrm/civicrm-packages/tree/5.77.0"
             },
-            "time": "2024-07-01T04:23:18+00:00"
+            "time": "2024-08-06T19:47:33+00:00"
         },
         {
             "name": "civicrm/composer-compile-lib",
