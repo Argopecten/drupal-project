@@ -1,5 +1,5 @@
 {
-    "name": "drupal/recommended-project",
+    "name": "argopecten/drupal-project",
     "description": "Project template for Drupal projects with a relocated document root",
     "type": "project",
     "license": "GPL-2.0-or-later",
@@ -15,13 +15,14 @@
         }
     ],
     "require": {
+        "php": ">=8.3",
         "composer/installers": "^2.0",
-        "drupal/core-composer-scaffold": "^11.0",
-        "drupal/core-project-message": "^11.0",
-        "drupal/core-recommended": "^11.0"
+        "cweagans/composer-patches": "^1.7",
+        "psr/log": "1.1.4 as 3.0.0",
+        "drupal/core-composer-scaffold": "~11.0.0",
+        "drupal/core-recommended": "~11.0.0"
     },
     "require-dev": {
-        "drupal/core-dev": "^11.0"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -31,15 +32,19 @@
     "config": {
         "allow-plugins": {
             "composer/installers": true,
+            "cweagans/composer-patches": true,
             "drupal/core-composer-scaffold": true,
-            "drupal/core-project-message": true,
             "phpstan/extension-installer": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true,
             "php-http/discovery": true
         },
         "sort-packages": true
     },
     "extra": {
+        "patches": {
+            "drupal/core": {
+                "Omega8 D10 Aegir3 patch": "https://raw.githubusercontent.com/omega8cc/boa/5.x-dev/aegir/patches/drupal-ten-aegir-01.patch"
+            }
+        },
         "drupal-scaffold": {
             "locations": {
                 "web-root": "web/"
@@ -56,23 +61,12 @@
             "web/profiles/custom/{$name}": ["type:drupal-custom-profile"],
             "web/themes/custom/{$name}": ["type:drupal-custom-theme"]
         },
-        "drupal-core-project-message": {
-            "include-keys": ["homepage", "support"],
-            "post-create-project-cmd-message": [
-                "<bg=blue;fg=white>                                                         </>",
-                "<bg=blue;fg=white>  Congratulations, you’ve installed the Drupal codebase  </>",
-                "<bg=blue;fg=white>  from the drupal/recommended-project template!          </>",
-                "<bg=blue;fg=white>                                                         </>",
-                "",
-                "<bg=yellow;fg=black>Next steps</>:",
-
-                "  * Install the site: https://www.drupal.org/docs/installing-drupal",
-                "  * Read the user guide: https://www.drupal.org/docs/user_guide/en/index.html",
-                "  * Get support: https://www.drupal.org/support",
-                "  * Get involved with the Drupal community:",
-                "      https://www.drupal.org/getting-involved",
-                "  * Remove the plugin that prints this message:",
-                "      composer remove drupal/core-project-message"
+        "scripts": {
+            "post-update-cmd": [
+                "rm -rf vendor/symfony/console/Input # see https://www.computerminds.co.uk/articles/aegir-3-and-drupal-10-just-about-working"
+            ],
+            "post-install-cmd": [
+                "rm -rf vendor/symfony/console/Input # see https://www.computerminds.co.uk/articles/aegir-3-and-drupal-10-just-about-working"
             ]
         }
     }
