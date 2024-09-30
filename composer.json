@@ -8,17 +8,22 @@
         "docs": "https://www.drupal.org/docs/user_guide/en/index.html",
         "chat": "https://www.drupal.org/node/314178"
     },
-    "repositories": [
-        {
+    "repositories": {
+        "civiboot": {
+            "type": "vcs",
+            "url":  "https://github.com/argopecten/civiboot"
+        },
+        "drupal": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         }
-    ],
+    },
     "require": {
-        "composer/installers": "^2.0",
+        "argopecten/civiboot": "^3.0",
+        "composer/installers": "^2.3",
         "cweagans/composer-patches": "^1.7",
-        "drupal/core-composer-scaffold": "~10.3.1",
-        "drupal/core-recommended": "~10.3.1",
+        "drupal/core-composer-scaffold": "~10.3.5",
+        "drupal/core-recommended": "~10.3.5",
         "drush/drush": "^12.5",
         "psr/log": "1.1.4 as 3.0.0"
     },
