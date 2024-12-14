@@ -20,13 +20,13 @@
     },
     "require": {
         "argopecten/civiboot": "^3.0",
-        "civicrm/civicrm-core": "~5.78.3",
-        "civicrm/civicrm-drupal-8": "~5.78.3",
-        "civicrm/civicrm-packages": "~5.78.3",
+        "civicrm/civicrm-core": "~5.80.1",
+        "civicrm/civicrm-drupal-8": "~5.80.1",
+        "civicrm/civicrm-packages": "~5.80.1",
         "composer/installers": "^2.3",
         "cweagans/composer-patches": "^1.7",
-        "drupal/core-composer-scaffold": "~10.3.6",
-        "drupal/core-recommended": "~10.3.6",
+        "drupal/core-composer-scaffold": "~10.3.10",
+        "drupal/core-recommended": "~10.3.10",
         "drush/drush": "^12.5",
         "psr/log": "1.1.4 as 3.0.2"
     },
